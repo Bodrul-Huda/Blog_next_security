@@ -1,25 +1,20 @@
-import Image from "next/image";
-import Link from "next/link";
+import Hero from "../../components/home/Hero";
+import Section2 from "../../components/home/Section2";
+import Category from "../../components/home/Caterogy";
+import { postCategorories, postList, postNewest } from "../../lib/ApiRes";
+import Section3 from "../../components/home/Section3";
 
-const Home = () => {
+const Home = async () => {
+  const categories = await postCategorories();
+  const newest = await postNewest();
+  // const list = await postList(id);
+
   return (
     <>
-      <div className="relative h-screen">
-        <Image src="/heroImg.jpg" alt="hero" layout="fill" objectFit="cover" />
-        <div className="container mx-auto">
-          <div className="absolute top-[20rem] right-[2rem] my-4 ">
-            <h1 className="py-2 text-5xl text-white font-bold">
-              Welcome to My Blog
-            </h1>
-            <p className="pb-2 text-2xl text-white font-bold">
-              Explore my latest thoughts and articles.
-            </p>
-            <Link href="/blog" className="text-xl text-blue-300">
-              Visit Blogs
-            </Link>
-          </div>
-        </div>
-      </div>
+      <Hero />
+      <Category categories={categories} />
+      <Section2 newest={newest} />
+      <Section3 newest={newest} />
     </>
   );
 };
